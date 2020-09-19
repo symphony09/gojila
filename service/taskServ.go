@@ -12,3 +12,7 @@ func CreateOneTask(t *model.Task) {
 func GetPanelTasks(pid int) {
 	repository.FindTaskByPanelID(pid)
 }
+
+func ChangeTaskPanel(tid uint, panel string) {
+	repository.UpdateTaskPanel(tid, panel)
+}

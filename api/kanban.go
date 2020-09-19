@@ -5,6 +5,7 @@ import (
 	"github.com/symphony09/gojila/model"
 	"github.com/symphony09/gojila/service"
 	"net/http"
+	"time"
 )
 
 func CreateTask(c *gin.Context) {
@@ -22,7 +23,9 @@ func Tasks(c *gin.Context) {
 func Action(c *gin.Context) {
 	var payload model.Event
 	_ = c.ShouldBind(&payload)
+	payload.Time = time.Now()
 	service.RecordEvent(&payload)
+	if payload.From != payload.To {
+		service.ChangeTaskPanel(payload.TaskID, payload.To)
+	}
 }
-
-

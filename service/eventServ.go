@@ -12,3 +12,7 @@ func RecordEvent(e *model.Event) {
 func GetTaskEvents(tid int) []*model.Event {
 	return repository.GetEventsByTaskID(tid)
 }
+
+func GetProjectEvents(pid int) []*model.Event {
+	return nil
+}
