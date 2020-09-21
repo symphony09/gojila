@@ -15,14 +15,36 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) {
 		c.String(http.StatusNotFound, "The incorrect route.")
 	})
 
+	indexAPI := g.Group("/index")
+	{
+		project := indexAPI.Group("/project")
+		{
+			project.POST("/create", api.CreateProject)
+			project.GET("/list", api.Projects)
+		}
+	}
+
 	kanbanAPI := g.Group("/kanban")
 	{
+		panel := kanbanAPI.Group("/panel")
+		{
+			panel.POST("/create", api.CreatePanel)
+			panel.GET("/list", api.Panels)
+		}
+
 		task := kanbanAPI.Group("/task")
 		{
-			task.GET("/list", api.Tasks)
 			task.POST("/create", api.CreateTask)
-			task.GET("/event", api.TaskEvents)
+			task.GET("/info", api.Task)
+			task.GET("/list", api.Tasks)
 			task.POST("/event", api.Action)
+			task.GET("/event", api.TaskEvents)
 		}
+	}
+
+	overviewAPI := g.Group("/overview")
+	{
+		overviewAPI.GET("/task", api.ProjectTasks)
+		overviewAPI.GET("/event", api.ProjectEvents)
 	}
 }

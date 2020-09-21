@@ -9,6 +9,6 @@ type Task struct {
 	Tag         string
 	Sort        int
 	Description string
-	Events      []Event `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Events      []Event
 	PanelID     uint
 }

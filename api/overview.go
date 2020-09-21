@@ -7,12 +7,22 @@ import (
 	"strconv"
 )
 
-func TaskEvents(c *gin.Context) {
-	taskId := c.Query("task_id")
-	id, err := strconv.Atoi(taskId)
+func ProjectTasks(c *gin.Context) {
+	pid := c.Query("project_id")
+	id, err := strconv.Atoi(pid)
 	if err != nil {
 		c.JSON(http.StatusUnprocessableEntity, err.Error())
 	} else {
-		c.JSON(http.StatusOK, service.GetTaskEvents(id))
+		c.JSON(http.StatusOK, service.GetProjectTasks(id))
+	}
+}
+
+func ProjectEvents(c *gin.Context) {
+	pid := c.Query("project_id")
+	id, err := strconv.Atoi(pid)
+	if err != nil {
+		c.JSON(http.StatusUnprocessableEntity, err.Error())
+	} else {
+		c.JSON(http.StatusOK, service.GetProjectEvents(id))
 	}
 }

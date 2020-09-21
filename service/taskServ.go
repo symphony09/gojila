@@ -5,14 +5,26 @@ import (
 	"github.com/symphony09/gojila/repository"
 )
 
-func CreateOneTask(t *model.Task) {
+func NewTask(t *model.Task) {
 	repository.CreateOneTask(t)
 }
 
-func GetPanelTasks(pid int) {
-	repository.FindTaskByPanelID(pid)
+func GetTask(tid int) *model.Task {
+	return repository.FindTaskByID(tid)
 }
 
-func ChangeTaskPanel(tid uint, panel string) {
-	repository.UpdateTaskPanel(tid, panel)
+func GetPanelTasks(pid int) []*model.Task {
+	return repository.FindTaskByPanelID(pid)
+}
+
+func ChangeTaskPanel(tid uint, pn string) {
+	repository.UpdateTaskPanel(tid, pn)
+}
+
+func RecordEvent(e *model.Event) {
+	repository.CreateEvent(e)
+}
+
+func GetTaskEvents(tid int) []*model.Event {
+	return repository.FindEventsByTaskID(tid)
 }
